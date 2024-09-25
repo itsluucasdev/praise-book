@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Evangélica Pentecostal - Divina Promessa</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f8f8f8;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #eaeaea;
+        }
+        li span {
+            display: block;
+            font-size: 14px;
+            color: #666;
+        }
+        .no-result {
+            color: #999;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Busca de Louvores da Banda</h1>
+        <input type="text" id="search" placeholder="Digite para buscar...">
+        <ul id="results"></ul>
+    </div>
+
+    <script>
+        const louvores = [
+            {
+                louvor: "Escape",
+                primeiraEstrofe: "O inimigo tenta laços e embaraços pra me envergonhar, mas não vai",
+                tom: "Ré Maior (D)",
+                tomOriginal: "Ré Maior (D)",
+                tempo: 130,
+                versao: "Grupo de Louvor",
+                youtube: "https://youtu.be/vM2A2XEm9TE"
+            },
+            {
+                louvor: "Toca em Mim 2.0",
+                primeiraEstrofe: "Lembro quando te encontrei, tudo novo você fez, os abraços que senti, me fizeram prosseguir",
+                tom: "Ré Bemol (Db)",
+                tomOriginal: "Ré bemol (Db)",
+                tempo: 115,
+                versao: "Grupo de Louvor",
+                youtube: "https://youtu.be/vM2A2XEm9TE"
+            },
+        ];
+
+        const searchInput = document.getElementById('search');
+        const resultsList = document.getElementById('results');
+
+        function displayLouvores(louvoresParaExibir) {
+            resultsList.innerHTML = ''; // Limpa a lista
+
+            if (louvoresParaExibir.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = 'Nenhum resultado encontrado';
+                li.classList.add('no-result');
+                resultsList.appendChild(li);
+            } else {
+                louvoresParaExibir.forEach(louvor => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>Louvor: ${louvor.louvor}</strong>
+                        <span>Tom: ${louvor.tom}</span>
+                        <span>Tom Original: ${louvor.tomOriginal}</span>
+                        <span>Tempo: ${louvor.tempo} BPM</span>
+                        <span>Versão: ${louvor.versao} </span>
+                        <span><a href="${louvor.youtube}" target="_blank">YouTube</a></span>
+                    `;
+                    resultsList.appendChild(li);
+                });
+            }
+        }
+
+        // Exibe todos os louvores ao carregar a página
+        displayLouvores(louvores);
+
+        // Filtra e exibe os louvores com base no texto digitado
+        searchInput.addEventListener('input', function() {
+            const query = searchInput.value.toLowerCase();
+
+            const filteredLouvores = louvores.filter(louvor => 
+                louvor.louvor.toLowerCase().includes(query) ||
+                louvor.primeiraEstrofe.toLowerCase().includes(query)
+            );
+
+            displayLouvores(filteredLouvores);
+        });
+    </script>
+</body>
+</html>
